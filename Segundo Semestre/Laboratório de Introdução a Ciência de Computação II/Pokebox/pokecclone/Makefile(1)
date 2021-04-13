@@ -1,0 +1,19 @@
+SOURCE = Source/dll.c Source/Moves.c Source/PokeBox.c Source/Pokemon.c Source/PokeType.c Source/SaveManager.c Source/SpriteManager.c Source/Util.c Source/PokeDex.c Source/element.c
+MAIN = main.c
+BINARY = ./pokebox
+CFLAGS = -Wall -Werror -g
+VFLAGS = --show-leak-kinds=all --track-origins=yes --leak-check=full
+INCLUDES = ./Includes
+CC = gcc
+
+all:
+	@$(CC) $(MAIN) $(SOURCE) -o $(BINARY) -I $(INCLUDES) $(CFLAGS)
+
+run:
+	@$(BINARY)
+
+valgrind:
+	valgrind $(VFLAGS) $(BINARY)
+
+zip:
+	zip Pokebox -r ./Source $(INCLUDES) Makefile $(MAIN) data
